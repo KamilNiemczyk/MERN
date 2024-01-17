@@ -6,17 +6,20 @@ import Home from './components/Home';
 import Search from './components/Search';
 import Admin from './components/Admin';
 import Cart from './components/Cart';
+import { CartProvider } from './contexts/ContextReducer';
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
+      <CartProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </CartProvider>
     </div>
   );
 }
