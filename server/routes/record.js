@@ -3,23 +3,41 @@ const recordRoutes = express.Router();
 const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 
-recordRoutes.route("/register").post(async function(req, res) {
-    const newUser = req.body;
+recordRoutes.route("/addProduct").post(async function(req, res) {
+    const newProduct = {
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description,
+        image: req.body.image,
+        category: req.body.category,
+        quantity: req.body.quantity,
+        rating: [],
+        comments: [],
+        full_description: req.body.full_description,
+        brand: req.body.brand
+    }
     try {
-        let db_connect = dbo.getDb("pswbaza");
-        const usersCollection = db_connect.collection('users');
-        const existingUser = await usersCollection.findOne({ login: newUser.login });
-        if (existingUser) {
-            return res.status(500).json({ message: 'Jest już taki użytkownik' });
+        let db_connect = dbo.getDb("sklep");
+        const productsCollection = db_connect.collection('products');
+        const existingProduct = await productsCollection.findOne({ name: newProduct.name });
+        if (existingProduct) {
+            return res.status(500).json({ message: 'Jest już taki produkt' });
         }
-        const hashedPassword = await bcrypt.hash(newUser.password, saltRounds);
-        newUser.password = hashedPassword;
-        const result = await usersCollection.insertOne(newUser);
-        res.status(201).json({ message: 'Użytkownik dodany'});
-        console.log("Dodalem uzytkownika");
+        const result = await productsCollection.insertOne(newProduct);
+        res.status(201).json({ message: 'Produkt dodany'});
     } catch (error) {
-        res.status(500).json({ message: 'Błąd podczas dodawania użytkownika' });
-        console.log("Nie dodalem uzytkownika");
+        res.status(500).json({ message: 'Błąd podczas dodawania produktu' });
+    }
+});
+
+recordRoutes.route("/getProducts").get(async function(req, res) {
+    try {
+        let db_connect = dbo.getDb("sklep");
+        const productsCollection = db_connect.collection('products');
+        const result = await productsCollection.find().toArray();
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas pobierania produktów' });
     }
 });
 
