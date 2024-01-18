@@ -63,5 +63,44 @@ recordRoutes.route("/deleteProduct/:id").delete(async function(req, res) {
     }
 });
 
+recordRoutes.route("/addComment/:id").post(async function(req, res) {
+    try {
+        let db_connect = dbo.getDb("sklep");
+        const productsCollection = db_connect.collection('products');
+        const result = await productsCollection.updateOne({ _id: ObjectId(req.params.id) }, { $push: { comments: req.body } });
+        res.status(200).json({ message: 'Komentarz dodany' });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas dodawania komentarza' });
+    }
+});
+
+recordRoutes.route("/addRating/:id").post(async function(req, res) {
+    try {
+        let db_connect = dbo.getDb("sklep");
+        const productsCollection = db_connect.collection('products');
+        const result = await productsCollection.updateOne({ _id: ObjectId(req.params.id) }, { $push: { rating: req.body } });
+        res.status(200).json({ message: 'Ocena dodana' });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas dodawania oceny' });
+    }
+});
+
+recordRoutes.route("/getAverageRating/:id").get(async function(req, res) {
+    try {
+        let db_connect = dbo.getDb("sklep");
+        const productsCollection = db_connect.collection('products');
+        const result = await productsCollection.findOne({ _id: ObjectId(req.params.id) });
+        const rating = result.rating;
+        let sum = 0;
+        rating.forEach(element => {
+            sum += element.rating;
+        });
+        const averageRating = sum / rating.length;
+        res.status(200).json({ averageRating: averageRating });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas pobierania średniej oceny' });
+    }
+});
+
 
 module.exports = recordRoutes;
