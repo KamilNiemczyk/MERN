@@ -41,4 +41,27 @@ recordRoutes.route("/getProducts").get(async function(req, res) {
     }
 });
 
+recordRoutes.route("/getProduct/:id").get(async function(req, res) {
+    try {
+        let db_connect = dbo.getDb("sklep");
+        const productsCollection = db_connect.collection('products');
+        const result = await productsCollection.findOne({ _id: ObjectId(req.params.id) });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas pobierania produktu' });
+    }
+});
+
+recordRoutes.route("/deleteProduct/:id").delete(async function(req, res) {
+    try {
+        let db_connect = dbo.getDb("sklep");
+        const productsCollection = db_connect.collection('products');
+        const result = await productsCollection.deleteOne({ _id: ObjectId(req.params.id) });
+        res.status(200).json({ message: 'Produkt usunięty' });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas usuwania produktu' });
+    }
+});
+
+
 module.exports = recordRoutes;

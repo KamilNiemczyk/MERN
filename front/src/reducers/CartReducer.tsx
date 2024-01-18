@@ -11,7 +11,8 @@ export interface CartState {
     totalItems: number;
 }
 
-export type CartAction = { type: 'ADD_TO_CART', payload: CartProduct };
+export type CartAction = { type: 'ADD_TO_CART', payload: CartProduct }
+;
 
 const initialState : CartState = {
     cart: [],
@@ -43,7 +44,7 @@ export default function CartReducer(state : CartState = initialState, action : C
                     totalItems: state.totalItems + 1,
                 };
             }
-            default:
-                return state;
+        default:
+            return state;
     }
 }

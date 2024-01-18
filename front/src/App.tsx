@@ -7,6 +7,7 @@ import Search from './components/Search';
 import Admin from './components/Admin';
 import Cart from './components/Cart';
 import { CartProvider } from './contexts/ContextReducer';
+import Details from './components/Details';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="search/:id" element={<Details />} />
         </Routes>
       </CartProvider>
     </div>
