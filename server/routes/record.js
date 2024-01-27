@@ -428,4 +428,40 @@ recordRoutes.route("/getProductsAlphabetically").get(function(req, res) {
     });
 });
 
+recordRoutes.route("/getCategories").get(function(req, res) {
+    new Promise(async (resolve, reject) => {
+        try {
+            let db_connect = dbo.getDb("sklep");
+            const productsCollection = db_connect.collection('products');
+            const result = await productsCollection.distinct('category');
+            resolve(result);
+        } catch (error) {
+            reject(error);
+        }
+    })
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(error => {
+        res.status(500).json({ message: 'Błąd podczas pobierania kategorii' });
+    });
+});
+recordRoutes.route("/getBrands").get(function(req, res) {
+    new Promise(async (resolve, reject) => {
+        try {
+            let db_connect = dbo.getDb("sklep");
+            const productsCollection = db_connect.collection('products');
+            const result = await productsCollection.distinct('brand');
+            resolve(result);
+        } catch (error) {
+            reject(error);
+        }
+    })
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(error => {
+        res.status(500).json({ message: 'Błąd podczas pobierania marek' });
+    });
+});
 module.exports = recordRoutes;

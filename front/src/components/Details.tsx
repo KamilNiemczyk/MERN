@@ -78,10 +78,10 @@ export default function Details() {
         <div>      
             <div className='mt-[5vh] flex items-center justify-center bg-[#DED0B6] py-[10vh]'>
                 <div className='grid grid-cols-2 gap-[10vh]'>
-                    <div>
+                    <div className='m-auto'>
                         <img className='w-[50vh] h-[50vh]' src={product?.image} alt={product?.name} />
                     </div>
-                    <div className='flex flex-col items-start space-y-6'>
+                    <div className='flex flex-col items-start space-y-6 mr-10'>
                         <h1 className='text-4xl'>{product?.name}</h1>
                         <p className='text-2xl'>{product?.description}</p>
                         <div className='flex flex-row items-center space-x-[10vh]'>
