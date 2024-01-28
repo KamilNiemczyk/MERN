@@ -3,17 +3,32 @@ import ProductCard from './ProductCard'
 import { ProductCardProps } from './ProductCard';
 import { useState, useEffect } from 'react';
 
+
 export default function Home() {
     const [products, setProducts] = useState<any[]>([])
-    useEffect(() => {
-        fetch('http://localhost:5000/getProducts')
-        .then(res => res.json())
-        .then(data => {
-            const test = data.slice(0, 9)
-            setProducts(test)
-        })
-    },[])
 
+
+    const fetchData = () => {
+        return new Promise((resolve, reject) => {
+            fetch('http://localhost:5000/getProducts')
+            .then(res => res.json())
+            .then(data => {
+                const test = data.slice(0, 9)
+                resolve(test)
+            })}).then((data) => {
+                setProducts(data as any[]);
+            }).then(() => {
+                console.log("Pobrano produkty")
+            }).catch((error) => {
+                console.error('Error:', error);
+            }).finally(() => {
+                console.log("Zakończono pobieranie produktów")
+            })
+    }
+    useEffect(() => {
+        fetchData();
+    },[])
+    
     return (
         <div>
             <div className="flex justify-center mx-[10vh]">

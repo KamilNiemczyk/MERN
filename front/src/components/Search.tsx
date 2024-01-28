@@ -98,7 +98,7 @@ export default function Search() {
                 />
             </form>
             <div className='grid grid-cols-4 gap-[7vh]'>
-                <div className='col-span-1 flex-col justify-center bg-[#DED0B6] ml-[10vh] pb-[8vh]'>
+                <div className='col-span-1 flex-col justify-center bg-primary ml-[10vh] pb-[8vh]'>
                     <p className='my-[6vh] text-2xl'>Filtrowanie</p>
                     <form onSubmit={handleFilterEndpoint} className='flex flex-col mx-10 space-y-3'>
                         <label htmlFor="category" className='text-xl'>Kategoria</label>

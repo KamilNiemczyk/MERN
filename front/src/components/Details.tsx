@@ -36,6 +36,7 @@ export default function Details() {
         const storedAdmin = Cookies.get('admin');
         setAdmin(storedAdmin);
     }, []);
+    
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -100,7 +101,7 @@ export default function Details() {
         <div>
             {product && product.name ? (
         <div>      
-            <div className='mt-[5vh] flex items-center justify-center bg-[#DED0B6] py-[10vh]'>
+            <div className='mt-[5vh] flex items-center justify-center bg-primary py-[10vh]'>
                 <div className='grid grid-cols-2 gap-[10vh]'>
                     <div className='m-auto'>
                         <img className='w-[50vh] h-[50vh]' src={product?.image} alt={product?.name} />
@@ -155,13 +156,13 @@ export default function Details() {
                                     <option value="4">Usuń wszystkie 4</option>
                                     <option value="5">Usuń wszystkie 5</option>
                                 </select>
-                                <button className="bg-[#B2A59B] py-2 px-2 rounded-lg hover:scale-110" onClick={() => handleEditRating(product._id, Number(selectedValue))}>Usuń ocene</button>
+                                <button className="bg-secondary py-2 px-2 rounded-lg hover:scale-110" onClick={() => handleEditRating(product._id, Number(selectedValue))}>Usuń ocene</button>
                             </div> : null
                             }
                     </div>
                 </div>
             </div>
-            <div className='mt-[3vh] flex-col items-center justify-center bg-[#B2A59B] py-[10vh]'>
+            <div className='mt-[3vh] flex-col items-center justify-center bg-secondary py-[10vh]'>
                 <div className='items-center justify-center flex flex-col space-y-20'>
                     <h1 className='text-4xl'>Dodaj opinie o produkcie</h1>
                     <div className='bg-[#F1E6D1] rounded-lg w-1/2 py-[10vh]'>
@@ -187,19 +188,19 @@ export default function Details() {
                                 className='w-1/2'
                             />
                             {formik.errors.komentarz ? <div>{formik.errors.komentarz}</div> : null}
-                            <button className="bg-[#B2A59B] py-2 px-2 rounded-lg hover:scale-110" type="submit">Submit</button>
+                            <button className="bg-secondary py-2 px-2 rounded-lg hover:scale-110" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <div className='mt-[3vh] flex-col items-center justify-center bg-[#DED0B6] py-[10vh]'>
+            <div className='mt-[3vh] flex-col items-center justify-center bg-primary py-[10vh]'>
                 <div className='items-center justify-center flex flex-col space-y-20'>
                     <h1 className='text-4xl'>Opinie o produkcie</h1>
                     {product?.comments.map((comment) => (
                         <div key={comment.id} className='bg-[#F1E6D1] rounded-lg w-1/2 py-[7vh]'>
                             <p className='text-2xl'>Imie: {comment.name}</p>
                             <p className='text-2xl'>Komentarz: {comment.komentarz}</p>
-                            {admin === "true" ? <button className="bg-[#B2A59B] py-2 px-2 mt-[4vh] rounded-lg hover:scale-110" onClick={() => handleDeleteComment(product._id, comment.id)}>Usuń komentarz</button> : null}
+                            {admin === "true" ? <button className="bg-secondary py-2 px-2 mt-[4vh] rounded-lg hover:scale-110" onClick={() => handleDeleteComment(product._id, comment.id)}>Usuń komentarz</button> : null}
                         </div>
                     ))}
                 </div>

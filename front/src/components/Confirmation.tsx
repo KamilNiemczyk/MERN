@@ -43,7 +43,7 @@ export default function Confirmation() {
     return (
         <div>
             <div className="flex justify-center items-center mx-[10vh]">
-                <div className="my-12 bg-[#DED0B6] flex flex-col px-[20vh] justify-center items-center rounded-lg py-[10vh] space-y-7">
+                <div className="my-12 bg-primary flex flex-col px-[20vh] justify-center items-center rounded-lg py-[10vh] space-y-7">
                     <h1 className="text-4xl">Potwierdzenie zakupu</h1>
                     {deliver === 'kurierA' ? 
                         <div>
@@ -62,7 +62,7 @@ export default function Confirmation() {
                             <p className='text-2xl'>Suma zamówienia+ kurier: {state.total} + 15 = {state.total+15} </p>
                         </div> : null}
                     {deliver === null ? <p className='text-2xl'>Niestety nie złożono zamówienia</p> : null}
-                    {deliver !== null ? <button className='bg-[#607274] hover:bg-[#B2A59B] text-white font-bold rounded-lg px-[10vh] py-4' onClick={handleDeleteCookie}>Zamów ponownie</button> : null}
+                    {deliver !== null ? <button className='bg-[#607274] hover:bg-[#B2A59B] text-white font-bold rounded-lg px-[10vh] py-4' onClick={handleDeleteCookie}>Potwierdź i zamów ponownie</button> : null}
                 </div>
             </div>
         </div>

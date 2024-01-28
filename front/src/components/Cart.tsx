@@ -37,7 +37,7 @@ export default function Cart() {
             <div className="flex justify-center mx-[10vh]">
                 <div className="my-12">
                     <h1 className="text-4xl mb-[5vh]">Koszyk</h1>
-                    <div className="flex flex-col bg-[#DED0B6] rounded-lg">
+                    <div className="flex flex-col bg-primary rounded-lg">
                         {state.cart.length === 0 && <p className="text-2xl p-40">KOSZYK JEST PUSTY</p>}
                         {state.cart.map((item: any) => (
                             <div>

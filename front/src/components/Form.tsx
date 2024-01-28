@@ -261,7 +261,7 @@ export default function Form() {
                         </select>
                         {formik.errors.delivery ? <div>{formik.errors.delivery}</div> : null}
                         </div>
-                    <button className="bg-[#B2A59B] py-2 mx-20 px-2 rounded-lg hover:scale-110" type="submit">Submit</button>
+                    <button className="bg-secondary py-2 mx-20 px-2 rounded-lg hover:scale-110" type="submit">Submit</button>
                 </form>
             </div>
         </div>

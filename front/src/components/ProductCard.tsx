@@ -35,7 +35,7 @@ export default function ProductCard(product: ProductCardProps) {
     }
     return (
         <div
-      className={`relative w-64 h-96 bg-[#DED0B6] rounded-lg shadow-lg transition-transform transform ${
+      className={`relative w-64 h-96 bg-primary rounded-lg shadow-lg transition-transform transform ${
         isHovered ? 'hover:scale-110' : ''
       }`}
       onMouseEnter={() => setIsHovered(true)}
@@ -52,7 +52,7 @@ export default function ProductCard(product: ProductCardProps) {
                 <p className="text-sm">Dostępna ilość: {product.quantity}</p>
             </div>
             {isHovered && (
-                <div className="absolute top-0 left-0 w-full h-full bg-[#DED0B6] bg-opacity-80 rounded-lg flex flex-col justify-center items-center space-y-5">
+                <div className="absolute top-0 left-0 w-full h-full bg-primary bg-opacity-80 rounded-lg flex flex-col justify-center items-center space-y-5">
                     {/* <button className="bg-[#607274] hover:bg-[#B2A59B] text-white font-bold py-2 px-4 rounded" onClick={() => dispatch(addToCart({name: product.name, price: product.price}))}> */}
                     <button className="bg-[#607274] hover:bg-[#B2A59B] text-white font-bold py-2 px-4 rounded" onClick={() => handleAdd(product)}>
                         Dodaj do koszyka
