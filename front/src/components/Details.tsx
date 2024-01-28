@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Stars from './StarsRead';
 import StarsGive from './StarsGive';
 import Cookies from 'js-cookie';
+import { useRef } from 'react';
 interface CommentProps {
     name: string;
     komentarz: string;

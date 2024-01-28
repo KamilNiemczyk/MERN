@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import ProductCard from './ProductCard'
 import { ProductCardProps } from './ProductCard';
 export default function Search() {
     const [products, setProducts] = useState<any[]>([])
     const [categories, setCategories] = useState<any[]>([])
     const [brands, setBrands] = useState<any[]>([])
+    const searchInput = useRef<HTMLInputElement | null >(null);
     useEffect(() => {
         fetch('http://localhost:5000/getProducts')
         .then(res => res.json())
         .then(data => setProducts(data))
     },[])
+
+    useEffect(() => {
+        if(searchInput.current){
+            searchInput.current.focus();
+        }
+    }
+    ,[])
 
     useEffect(() => {
         fetch('http://localhost:5000/getCategories')
@@ -90,6 +98,7 @@ export default function Search() {
         <div>
             <form onSubmit={handleSearchEndpoint}>
                 <input
+                        ref={searchInput}
                         type="text"
                         name="search"
                         id="search"

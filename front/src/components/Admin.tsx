@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useFormik } from 'formik';
@@ -7,6 +7,17 @@ import { useFormik } from 'formik';
 
 export default function Admin() {
     const [admin, setAdmin] = useState(Cookies.get('admin'));
+    const [clickCount, setClickCount] = useState(0);
+
+    useLayoutEffect(() => {
+        if (clickCount === 20) {
+            setClickCount(0);
+            changeRole();
+        }
+    }, [clickCount])
+    const handleClicker = () => {
+        setClickCount(clickCount + 1);
+    }
     const getStoredAdmin = () => {
         return new Promise((resolve, reject) => {
           try {
@@ -17,6 +28,13 @@ export default function Admin() {
           }
         });
       };
+    const searchInput = useRef<HTMLInputElement | null >(null);
+    useEffect(() => {
+        if(searchInput.current){
+            searchInput.current.focus();
+        }
+    }
+    ,[])
 
     useEffect(() => {
         getStoredAdmin().then((data) => {
@@ -118,14 +136,14 @@ export default function Admin() {
             <div className="flex flex-col justify-center mx-[10vh]">
                 <div className="my-12 space-y-[5vh]">
                     <h1 className="text-4xl font-pacifico">Panel Admina</h1>
-                    <button className='bg-[#607274] hover:bg-secondary text-white font-bold rounded-lg px-[10vh] py-4' onClick={changeRole}>{admin==="true" ? "Wyłącz" : "Włącz"} uprawnienia admina</button>
+                    <button className='bg-[#607274] hover:bg-secondary text-white font-bold rounded-lg px-[10vh] py-4' onClick={handleClicker}>Kliknij {20-clickCount} razy aby zmienić uprawnienia</button>
                     <p className="text-2xl">Aktualnie {admin === "true" ? "posiadasz prawa administratora" : "nie posiadasz praw administratora"}</p>
                 </div>
                 {admin === "true" ?
                     <form onSubmit={formik.handleSubmit} className="flex flex-col space-y-4 bg-primary rounded-lg pb-[4vh]">
                         <label className="bg-secondary rounded m-auto min-w-[90vh] py-[1vh] text-white text-3xl mt-[4vh]" htmlFor="name">Dodaj produkt</label>
                         <label className="bg-secondary rounded m-auto min-w-[30vh] py-[1vh] text-white text-2xl mt-[4vh]" htmlFor="name">Nazwa</label>
-                        <input className='mx-[10vh] rounded-lg' id="name" name="name" type="text" onChange={formik.handleChange} value={formik.values.name} />
+                        <input className='mx-[10vh] rounded-lg' id="name" name="name" type="text" onChange={formik.handleChange} value={formik.values.name} ref={searchInput}/>
                         {formik.errors.name ? <div>{formik.errors.name}</div> : null}
                         <label className="bg-secondary rounded m-auto min-w-[30vh] py-[1vh] text-white text-2xl" htmlFor="image">Zdjęcie</label>
                         <input className='mx-[10vh] rounded-lg' id="image" name="image" type="text" onChange={formik.handleChange} value={formik.values.image} />
