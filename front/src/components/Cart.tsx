@@ -46,8 +46,8 @@ export default function Cart() {
                                     <p className='flex items-center ml-[6vh]'>Cena: {item.price}</p>
                                     <p className='flex items-center'>Ilość: {item.quantity}</p>
                                     <div className='space-x-10 col-span-5'>
-                                        <button className='bg-[#607274] hover:bg-[#B2A59B] text-white font-bold rounded-lg px-[10vh] py-4' onClick={() => dispatch(addToCart({name: item.name, price: item.price}))}>+</button>
-                                        <button className='bg-[#607274] hover:bg-[#B2A59B] text-white font-bold rounded-lg px-[10vh] py-4' onClick={() => dispatch(removeFromCart({name: item.name, price:item.price}))}>-</button>
+                                        <button className='bg-[#607274] hover:bg-[#B2A59B] text-white font-bold rounded-lg px-[10vh] py-4' onClick={() => dispatch(addToCart({name: item.name, price: item.price, id : item._id}))}>+</button>
+                                        <button className='bg-[#607274] hover:bg-[#B2A59B] text-white font-bold rounded-lg px-[10vh] py-4' onClick={() => dispatch(removeFromCart({name: item.name, price:item.price, id: item._id}))}>-</button>
                                     </div>
                                 </div>
                             </div>

@@ -27,7 +27,14 @@ export default function Confirmation() {
     }
     const handleDeletingQuantity = () => {
         state.cart.forEach((product: any) => {
-            fetch(`http://localhost:5000/updateQuantity/${product._id}/${product.quantity}`)
+            fetch(`http://localhost:5000/updateQuantity/${product.id}/${product.quantity}`, 
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+            )
             .then(res => res.json())
             .then(data => console.log(data))
         })

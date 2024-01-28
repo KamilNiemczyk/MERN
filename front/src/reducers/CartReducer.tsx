@@ -4,6 +4,7 @@ interface CartProduct {
     name: string;
     price: number;
     quantity: number;
+    id: string;
 }
 export interface CartState {
     cart: CartProduct[];
@@ -39,7 +40,7 @@ export default function CartReducer(state : CartState = initialState, action : C
             }
             else {
                 return {
-                    cart : [...state.cart, { name: action.payload.name, price: action.payload.price, quantity: 1 }],
+                    cart : [...state.cart, { name: action.payload.name, price: action.payload.price, quantity: 1, id: action.payload.id}],
                     total: state.total + action.payload.price,
                     totalItems: state.totalItems + 1,
                 };

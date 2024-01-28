@@ -8,14 +8,17 @@ export default function Home() {
     useEffect(() => {
         fetch('http://localhost:5000/getProducts')
         .then(res => res.json())
-        .then(data => setProducts(data))
+        .then(data => {
+            const test = data.slice(0, 9)
+            setProducts(test)
+        })
     },[])
 
     return (
         <div>
             <div className="flex justify-center mx-[10vh]">
                 <div className="my-12">
-                    <h1 className="text-4xl">HOME</h1>
+                    <h1 className="text-4xl">Przykładowe produkty</h1>
                 </div>
             </div>
             <div className='flex justify-center items-center'>

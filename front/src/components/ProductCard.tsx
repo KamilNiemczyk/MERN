@@ -30,7 +30,7 @@ export default function ProductCard(product: ProductCardProps) {
         if(quantityInCart === product.quantity){
             return;
         }else{
-            dispatch(addToCart({name: producta.name, price: producta.price}));
+            dispatch(addToCart({name: producta.name, price: producta.price, id : producta._id}));
         }
     }
     return (

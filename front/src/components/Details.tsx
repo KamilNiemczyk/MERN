@@ -40,7 +40,7 @@ export default function Details() {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         for(let i=0; i<event.target.quantity.value; i++){
-            dispatch(addToCart({name: product?.name ?? "Imie jeśli bedzie undefined", price: product?.price ?? 0}))
+            dispatch(addToCart({name: product?.name ?? "Imie jeśli bedzie undefined", price: product?.price ?? 0, id : product?._id ?? "Id jeśli bedzie undefined"}))
         }
     }
     console.log(product?.comments)
