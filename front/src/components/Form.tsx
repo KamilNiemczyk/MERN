@@ -3,9 +3,15 @@ import React from 'react';
 import { useFormik } from 'formik';
 import Cookies from 'js-cookie';  
 import { useNavigate } from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
 
 export default function Form() {
+    const [formApproved] = useState(Cookies.get('cartApproved'));
+    useEffect(() => {
+        if(formApproved !== "true"){
+            navigate(`/cart`)
+        }
+    },[])
     const validate = (values: {name? : string, surname? : string, email? : string, phone? : string, city? : string, street? : string, house? : string, postcode? : string, flatNumber? : string, delivery? : string}) => {
         let errors : {name? : string, surname? : string, email? : string, phone? : string, city? : string, street? : string, house? : string, postcode? : string, flatNumber? : string, delivery? : string} = {};
         if (!values.name) {

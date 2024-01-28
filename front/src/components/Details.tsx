@@ -23,8 +23,8 @@ export default function Details() {
     const {id} = useParams();
     const [product, setProduct] = useState<Product>()
     const [admin, setAdmin] = useState(Cookies.get('admin'));
-    const {dispatch} = useContext(CartContext);
     const [selectedValue, setSelectedValue] = useState<string>('');
+    const {dispatch} = useContext(CartContext);
 
     useEffect(() => {
         fetch(`http://localhost:5000/getProduct/${id}`)
@@ -146,7 +146,7 @@ export default function Details() {
                             })}
                         </div>
                         {(admin === "true" && Array.isArray(product?.rating) && product?.rating.length > 0)? 
-                            <div className='bg-[#F1E6D1] flex rounded-lg '>
+                            <div className='bg-[#F1E6D1] flex rounded-lg space-x-[7vh] '>
                                 <select className='bg-[#F1E6D1] text-2xl px-[5vh] py-[1vh] rounded-lg' name="rating" id="rating" onChange={handleSelect}>
                                     <option value="">Wybierz ocene do usunięcia</option>
                                     <option value="1">Usuń wszystkie 1</option>

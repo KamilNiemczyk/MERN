@@ -19,10 +19,19 @@ export interface ProductCardProps {
 
 export default function ProductCard(product: ProductCardProps) {
     const [isHovered, setIsHovered] = useState(false);
-    const {dispatch} = useContext(CartContext);
+    // const {dispatch} = useContext(CartContext);
     const navigate = useNavigate();
     const handleNavigate = (id : string) => {
         navigate(`/search/${id}`)
+    }
+    const { state , dispatch} = useContext(CartContext);
+    const handleAdd= (producta : ProductCardProps) => {
+        const quantityInCart = state.cart.filter((item: any) => item.name === producta.name)[0]?.quantity;
+        if(quantityInCart === product.quantity){
+            return;
+        }else{
+            dispatch(addToCart({name: producta.name, price: producta.price}));
+        }
     }
     return (
         <div
@@ -44,7 +53,8 @@ export default function ProductCard(product: ProductCardProps) {
             </div>
             {isHovered && (
                 <div className="absolute top-0 left-0 w-full h-full bg-[#DED0B6] bg-opacity-80 rounded-lg flex flex-col justify-center items-center space-y-5">
-                    <button className="bg-[#607274] hover:bg-[#B2A59B] text-white font-bold py-2 px-4 rounded" onClick={() => dispatch(addToCart({name: product.name, price: product.price}))}>
+                    {/* <button className="bg-[#607274] hover:bg-[#B2A59B] text-white font-bold py-2 px-4 rounded" onClick={() => dispatch(addToCart({name: product.name, price: product.price}))}> */}
+                    <button className="bg-[#607274] hover:bg-[#B2A59B] text-white font-bold py-2 px-4 rounded" onClick={() => handleAdd(product)}>
                         Dodaj do koszyka
                     </button>
                     <button className="bg-[#607274] hover:bg-[#B2A59B] text-white font-bold py-2 px-4 rounded" onClick={() => handleNavigate(product._id)}>

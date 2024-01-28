@@ -3,12 +3,34 @@ import { useContext } from 'react';
 import { CartContext } from '../contexts/ContextReducer';
 import { addToCart, removeFromCart} from '../actions/CartActions';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 export default function Cart() {
     const { state , dispatch} = useContext(CartContext);
     const navigate = useNavigate();
+    const [products, setProducts] = useState<any[]>([])
+    useEffect(() => {
+        fetch('http://localhost:5000/getProducts')
+        .then(res => res.json())
+        .then(data => setProducts(data))
+    },[])
+
     const handleNavigate = () => {
-        navigate(`/form`)
+        let navigateToForm = true;
+        state.cart.forEach((item: any) => {
+            const quantityInCart = state.cart.filter((itema: any) => itema.name === item.name)[0]?.quantity;
+            const quantityInStock = products.filter((itema: any) => itema.name === item.name)[0]?.quantity;
+            if(quantityInCart > quantityInStock){
+                alert(`Brak wystarczającej ilości produktu ${item.name} na stanie. Można zamówić max ${quantityInStock} sztuk.`);
+                navigateToForm = false;
+                return;
+            }
+        })
+        if(navigateToForm){
+            Cookies.set("cartApproved", "true"); 
+            navigate(`/form`)
+        }
     }
     return (
         <div>

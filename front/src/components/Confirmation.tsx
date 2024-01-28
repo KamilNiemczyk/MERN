@@ -20,6 +20,8 @@ export default function Confirmation() {
     }, [])
     const handleDeleteCookie = () => {
         Cookies.remove('dostawa');
+        Cookies.remove('cartApproved');
+        handleDeletingQuantity();
         navigate(`/`)
         dispatch(clearCart());
     }
