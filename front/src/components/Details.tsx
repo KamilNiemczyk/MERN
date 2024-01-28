@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import Stars from './StarsRead';
 import StarsGive from './StarsGive';
+import Cookies from 'js-cookie';
 interface CommentProps {
     name: string;
     komentarz: string;
@@ -21,12 +22,20 @@ interface Product extends ProductCardProps {
 export default function Details() {
     const {id} = useParams();
     const [product, setProduct] = useState<Product>()
+    const [admin, setAdmin] = useState(Cookies.get('admin'));
     const {dispatch} = useContext(CartContext);
+    const [selectedValue, setSelectedValue] = useState<string>('');
+
     useEffect(() => {
         fetch(`http://localhost:5000/getProduct/${id}`)
         .then(res => res.json())
         .then(data => setProduct(data))
     },[id])
+
+    useEffect(() => {
+        const storedAdmin = Cookies.get('admin');
+        setAdmin(storedAdmin);
+    }, []);
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -35,6 +44,21 @@ export default function Details() {
         }
     }
     console.log(product?.comments)
+    const handleDeleteComment = (productId: string, commentId: string) => {
+        fetch(`http://localhost:5000/deleteComment/${productId}/${commentId}`, {
+            method: 'DELETE',
+        })
+        window.location.reload();
+    }
+    const handleEditRating = (productId: string, rating: number) => {
+        fetch(`http://localhost:5000/deleteRating/${productId}/${rating}`, {
+            method: 'DELETE',
+        })
+        window.location.reload();
+    }
+    const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedValue(event.target.value);
+    };
     const validate = (values: {name? : string; komentarz?:string}) => {
         let errors : {name? : string; komentarz?:string} = {};
         if (!values.name) {
@@ -108,6 +132,32 @@ export default function Details() {
                             <Stars id={product._id}/>
                             <StarsGive id={product._id}/>
                         </div>
+                        <div className='grid grid-cols-7 gap-[2vh]'>
+                            {Array.isArray(product?.rating) && product?.rating.map((rating) => {
+                                return(
+                                    <div key={rating.id} className='bg-[#F1E6D1] flex rounded-lg '>
+                                        {admin === "true" ? 
+                                        <div>
+                                            <p className='text-2xl'>Ocena: {rating.rating}</p>
+                                        </div>
+                                        : null}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        {(admin === "true" && Array.isArray(product?.rating) && product?.rating.length > 0)? 
+                            <div className='bg-[#F1E6D1] flex rounded-lg '>
+                                <select className='bg-[#F1E6D1] text-2xl px-[5vh] py-[1vh] rounded-lg' name="rating" id="rating" onChange={handleSelect}>
+                                    <option value="">Wybierz ocene do usunięcia</option>
+                                    <option value="1">Usuń wszystkie 1</option>
+                                    <option value="2">Usuń wszystkie 2</option>
+                                    <option value="3">Usuń wszystkie 3</option>
+                                    <option value="4">Usuń wszystkie 4</option>
+                                    <option value="5">Usuń wszystkie 5</option>
+                                </select>
+                                <button className="bg-[#B2A59B] py-2 px-2 rounded-lg hover:scale-110" onClick={() => handleEditRating(product._id, Number(selectedValue))}>Usuń ocene</button>
+                            </div> : null
+                            }
                     </div>
                 </div>
             </div>
@@ -149,6 +199,7 @@ export default function Details() {
                         <div key={comment.id} className='bg-[#F1E6D1] rounded-lg w-1/2 py-[7vh]'>
                             <p className='text-2xl'>Imie: {comment.name}</p>
                             <p className='text-2xl'>Komentarz: {comment.komentarz}</p>
+                            {admin === "true" ? <button className="bg-[#B2A59B] py-2 px-2 mt-[4vh] rounded-lg hover:scale-110" onClick={() => handleDeleteComment(product._id, comment.id)}>Usuń komentarz</button> : null}
                         </div>
                     ))}
                 </div>

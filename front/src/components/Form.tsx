@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import Cookies from 'js-cookie';  
 import { useNavigate } from 'react-router-dom';
 
+
 export default function Form() {
     const validate = (values: {name? : string, surname? : string, email? : string, phone? : string, city? : string, street? : string, house? : string, postcode? : string, flatNumber? : string, delivery? : string}) => {
         let errors : {name? : string, surname? : string, email? : string, phone? : string, city? : string, street? : string, house? : string, postcode? : string, flatNumber? : string, delivery? : string} = {};
@@ -11,11 +12,15 @@ export default function Form() {
             errors.name = 'Wymagane imie';
         } else if (values.name.length < 3) {
             errors.name = 'Imie musi miec wiecej niz 2 znaki';
+        } else if (values.name[0] === " ") {
+            errors.name = 'Imie nie moze zaczynac sie od spacji';
         }
         if (!values.surname) {
             errors.surname = 'Wymagane nazwisko';
         } else if (values.surname.length < 3) {
             errors.surname = 'Nazwisko musi miec wiecej niz 2 znaki';
+        } else if (values.surname[0] === " ") {
+            errors.surname = 'Nazwisko nie moze zaczynac sie od spacji';
         }
         if (!values.email) {
             errors.email = 'Email wymagany'
@@ -24,6 +29,8 @@ export default function Form() {
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
         ) {
             errors.email = 'Błedny email';
+        } else if (values.email[0] === " ") {
+            errors.email = 'Email nie moze zaczynac sie od spacji';
         }
         if (!values.phone) {
             errors.phone = 'Telefon wymagany'
@@ -31,6 +38,8 @@ export default function Form() {
             !/^(\d{3}-\d{3}-\d{3})$/i.test(values.phone)
         ) {
             errors.phone = "Błędny numer telefonu, nie może być stacjonarny i bez kierunkowego"
+        } else if (values.phone[0] === " ") {
+            errors.phone = 'Telefon nie moze zaczynac sie od spacji';
         }
         if (!values.city) {
             errors.city = 'Miasto wymagane'
@@ -38,6 +47,8 @@ export default function Form() {
             !/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/i.test(values.city)
         ){
             errors.city = "Błędne miasto"
+        } else if (values.city[0] === " ") {
+            errors.city = 'Miasto nie moze zaczynac sie od spacji';
         }
         if (!values.street) {
             errors.street = 'Ulica wymagana'
@@ -45,6 +56,8 @@ export default function Form() {
             !/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/i.test(values.street)
         ){
             errors.street = "Błędna ulica"
+        } else if (values.street[0] === " ") {
+            errors.street = 'Ulica nie moze zaczynac sie od spacji';
         }
         if (!values.house) {
             errors.house = 'Numer domu wymagany'
@@ -52,6 +65,8 @@ export default function Form() {
             !/^[0-9]+[a-zA-Z]*$/i.test(values.house)
         ){
             errors.house = "Błędny numer domu"
+        } else if (values.house[0] === " ") {
+            errors.house = 'Numer domu nie moze zaczynac sie od spacji';
         }
         if (!values.postcode) {
             errors.postcode = 'Kod pocztowy wymagany'
@@ -59,6 +74,8 @@ export default function Form() {
             !/^[0-9]{2}-[0-9]{3}$/i.test(values.postcode)
         ){
             errors.postcode = "Błędny kod pocztowy"
+        } else if (values.postcode[0] === " ") {
+            errors.postcode = 'Kod pocztowy nie moze zaczynac sie od spacji';
         }
         if (!values.flatNumber) {
             errors.flatNumber = 'Numer mieszkania wymagany'
@@ -66,9 +83,13 @@ export default function Form() {
             !/^\d+$/.test(values.flatNumber)
         ){
             errors.flatNumber = "Błędny numer mieszkania"
+        } else if (values.flatNumber[0] === " ") {
+            errors.flatNumber = 'Numer mieszkania nie moze zaczynac sie od spacji';
         }
         if (!values.delivery) {
             errors.delivery = 'Wymagany sposób dostawy'
+        } else if (values.delivery[0] === " ") {
+            errors.delivery = 'Sposób dostawy nie moze zaczynac sie od spacji';
         }
         return errors;
     }
