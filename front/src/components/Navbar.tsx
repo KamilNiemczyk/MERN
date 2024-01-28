@@ -5,7 +5,7 @@ export default function Navbar() {
         <div>
             <div className="flex justify-between mx-[10vh]">
                 <div className="my-12">
-                    <h1 className="text-4xl">SportSKLEP</h1>
+                    <h1 className="text-4xl font-serif">SportSKLEP</h1>
                 </div>
                 <div className="my-auto mr-[9vh]">
                     <div className="flex space-x-12 text-2xl my-auto py-7 px-10">

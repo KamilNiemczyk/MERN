@@ -117,7 +117,7 @@ export default function Admin() {
         <div>
             <div className="flex flex-col justify-center mx-[10vh]">
                 <div className="my-12 space-y-[5vh]">
-                    <h1 className="text-4xl">Panel Admina</h1>
+                    <h1 className="text-4xl font-pacifico">Panel Admina</h1>
                     <button className='bg-[#607274] hover:bg-secondary text-white font-bold rounded-lg px-[10vh] py-4' onClick={changeRole}>{admin==="true" ? "Wyłącz" : "Włącz"} uprawnienia admina</button>
                     <p className="text-2xl">Aktualnie {admin === "true" ? "posiadasz prawa administratora" : "nie posiadasz praw administratora"}</p>
                 </div>

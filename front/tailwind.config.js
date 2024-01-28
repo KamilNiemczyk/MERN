@@ -9,6 +9,12 @@ module.exports = {
         'primary': '#DED0B6',
         'secondary': '#B2A59B',
       },
+      fontFamily: {
+        'sans': ['Roboto', 'sans-serif'],
+        'serif': ['Roboto Slab', 'serif'],
+        'pacifico': ['Pacifico', 'cursive'],
+        'monoton': ['Monoton', 'cursive'],
+      },
     },
   },
   plugins: [],

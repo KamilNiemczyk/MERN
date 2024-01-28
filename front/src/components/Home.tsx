@@ -33,7 +33,7 @@ export default function Home() {
         <div>
             <div className="flex justify-center mx-[10vh]">
                 <div className="my-12">
-                    <h1 className="text-4xl">Przykładowe produkty</h1>
+                    <h1 className="text-4xl font-pacifico">Przykładowe produkty</h1>
                 </div>
             </div>
             <div className='flex justify-center items-center'>

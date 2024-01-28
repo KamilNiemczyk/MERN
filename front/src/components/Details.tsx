@@ -36,7 +36,7 @@ export default function Details() {
         const storedAdmin = Cookies.get('admin');
         setAdmin(storedAdmin);
     }, []);
-    
+
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -101,7 +101,7 @@ export default function Details() {
         <div>
             {product && product.name ? (
         <div>      
-            <div className='mt-[5vh] flex items-center justify-center bg-primary py-[10vh]'>
+            <div className='mt-[5vh] flex items-center justify-center bg-primary py-[10vh] font-monoton'>
                 <div className='grid grid-cols-2 gap-[10vh]'>
                     <div className='m-auto'>
                         <img className='w-[50vh] h-[50vh]' src={product?.image} alt={product?.name} />
