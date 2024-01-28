@@ -52,7 +52,7 @@ recordRoutes.route("/getProducts").get(function(req, res) {
         try {
             let db_connect = dbo.getDb("sklep");
             const productsCollection = db_connect.collection('products');
-            const result = await productsCollection.find().toArray();
+            const result = await productsCollection.find().filter({ quantity: { $gt: 0 } }).toArray();
             resolve(result);
         } catch (error) {
             reject(error);
@@ -464,4 +464,29 @@ recordRoutes.route("/getBrands").get(function(req, res) {
         res.status(500).json({ message: 'Błąd podczas pobierania marek' });
     });
 });
+
+recordRoutes.route("/updateQuantity/:product_id/:quantity").put(async function(req, res) {
+    const { quantity } = req.params;
+    try {
+        let db_connect = dbo.getDb("sklep");
+        const productsCollection = db_connect.collection('products');
+        const product = await productsCollection.findOne({ _id: ObjectId(req.params.product_id) });
+        if (!product) {
+            return res.status(404).json({ message: 'Produkt nie znaleziony' });
+        }
+        const updatedQuantity = product.quantity - parseInt(quantity);
+        if (updatedQuantity < 0) {
+            return res.status(400).json({ message: 'Ilość produktu nie może być ujemna' });
+        }
+        const result = await productsCollection.updateOne(
+            { _id: ObjectId(req.params.product_id) },
+            { $set: { quantity: updatedQuantity } }
+        );
+        res.status(200).json({ message: 'Ilość produktu zaktualizowana' });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd podczas aktualizowania ilości produktu' });
+    }
+});
+
+
 module.exports = recordRoutes;

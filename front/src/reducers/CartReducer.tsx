@@ -11,7 +11,7 @@ export interface CartState {
     totalItems: number;
 }
 
-export type CartAction = { type: 'ADD_TO_CART', payload: CartProduct }
+export type CartAction = { type: 'ADD_TO_CART', payload: CartProduct } | { type: 'REMOVE_FROM_CART', payload: CartProduct} | { type: 'CLEAR_CART'}
 ;
 
 const initialState : CartState = {
@@ -44,6 +44,35 @@ export default function CartReducer(state : CartState = initialState, action : C
                     totalItems: state.totalItems + 1,
                 };
             }
+        case 'REMOVE_FROM_CART':
+            let item = state.cart.find((item) => item.name === action.payload.name);
+            if (item?.quantity === 1) {
+                return {
+                    ...state,
+                    cart: state.cart.filter((item) => item.name !== action.payload.name),
+                    total: state.total - action.payload.price,
+                    totalItems: state.totalItems - 1,
+                };
+            }
+            else {
+                return {
+                    ...state,
+                    cart: state.cart.map((item) =>
+                    item.name === action.payload.name
+                      ? { ...item, quantity: item.quantity - 1 }
+                      : item
+                  ),
+                    total: state.total - action.payload.price,
+                    totalItems: state.totalItems - 1,
+                };
+            }
+        case 'CLEAR_CART':
+            return {
+                ...state,
+                cart: [],
+                total: 0,
+                totalItems: 0,
+            };
         default:
             return state;
     }

@@ -39,6 +39,7 @@ export default function Search() {
         event.preventDefault();
         fetch(`http://localhost:5000/getProductsByCategoryAndBrand/${event.target.category.value}/${event.target.brand.value}`)
         .then(res => res.json())
+        .then(data => data.filter((product: any) => product.quantity > 0))
         .then(data => {
             if((event.target.datesort.value !== "none" && event.target.avgRating.value !== "none") || (event.target.datesort.value !== "none" && event.target.sort.value !== "none") || (event.target.avgRating.value !== "none" && event.target.sort.value !== "none")){
                 alert("Nie można jednoczesni losować według daty, oceny i ceny")

@@ -100,9 +100,9 @@ export default function Details() {
                         </div>
                         <div className='flex flex-row space-x-10 '>
                                 <p className='text-2xl'>Cennik dostaw:</p>
-                                <p className='text-2xl'>Paczkomat: 10zł</p>
-                                <p className='text-2xl'>Kurier: 12zł</p>
-                                <p className='text-2xl'>Poczta: 16zł</p>
+                                <p className='text-2xl'>Kurier firmy A: 5zł</p>
+                                <p className='text-2xl'>Kurier firmy B: 10zł</p>
+                                <p className='text-2xl'>Kurier firmy C: 15zł</p>
                         </div>
                         <div className='flex space-x-[10vh]'>
                             <Stars id={product._id}/>

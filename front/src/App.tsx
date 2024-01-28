@@ -8,6 +8,8 @@ import Admin from './components/Admin';
 import Cart from './components/Cart';
 import { CartProvider } from './contexts/ContextReducer';
 import Details from './components/Details';
+import Form from './components/Form';
+import Confirmation from './components/Confirmation';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="search/:id" element={<Details />} />
+          <Route path="/form" element={<Form />} />
+          <Route path="/confirmation" element={<Confirmation />} />
         </Routes>
       </CartProvider>
     </div>
